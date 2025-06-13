@@ -42,11 +42,11 @@ hs <- hs %>%
   mutate(MDEs = ES.h(p1=prop1, p2=prop2))
 hs
 
-## Classic power estimate ##
+## Classic power estimate - Primary assessment of power##
 library(pwr)
 #Varying Sample Size to Get MDES
 #Set the power analysis parameters to obtain the MDEs for a test of two proportions
-samplesize <- c(1846, 1026)
+samplesize <- c(923, 513)
 power <- (0.80)
 siglev <- (0.05)
 alternative <- ("two.sided")
@@ -57,11 +57,12 @@ mdes <- sapply(samplesize,
                              power = power, sig.level = siglev, 
                              alternative = alternative)$h})
 plot_df <- data.frame(samplesize, mdes)
+plot_df
 library(ggplot2)
 ggplot(plot_df, aes(x=samplesize,
                     y=mdes))+geom_point()+geom_line()
 
-## Simulation power estimate ##
+## Simulation power estimate  as a check that have sufficient power##
 #NOTE: We assume a 7.25% change in conviction rates, and baseline conviction rates
 #of 40% for felonies and 23% for misdemeanors. I use the above sample sizes as my
 #middle point, but also explore MDEs under slightly smaller and large sample sizes
